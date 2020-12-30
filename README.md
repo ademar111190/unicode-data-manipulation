@@ -7,3 +7,9 @@ Download one of the zip data listed below, extract the xml from it and rename it
 - [Unihan Only](https://www.unicode.org/Public/13.0.0/ucdxml/ucd.unihan.grouped.zip)
 
 Reference [XML Doc](https://www.unicode.org/reports/tr42/)
+
+Download the CLDR data and than:
+
+1. Get the `common/annotations/en.xml` file and save as `annotations_en.xml`.
+
+- [Reference](http://cldr.unicode.org/index/downloads)

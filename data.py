@@ -5,9 +5,10 @@ from ast import literal_eval
 
 FIRST_CODE_POINT = "first-cp"
 LAST_CODE_POINT = "last-cp"
-SINGLE_CODE_POINT = "cp"
+CODE_POINT = "cp"
 UNICODE = "unicode"
 NAMES = ["na", "na1", "name"]
+NAME_ENGLISH = "en"
 
 
 def emoji(code_point):
@@ -33,18 +34,26 @@ class Char(object):
   def __init__(self):
     super(Char, self).__init__()
     self.single_code_point = None
-    self.name = None
+    self.name = {
+      NAME_ENGLISH: set()
+    }
 
   def populate(self, attrs):
-    if SINGLE_CODE_POINT in attrs:
-      self.single_code_point = attrs[SINGLE_CODE_POINT]
+    if CODE_POINT in attrs:
+      self.single_code_point = attrs[CODE_POINT].upper()
     for name in NAMES:
       if name in attrs:
-        self.name = attrs[name]
-        break
+        self.name[NAME_ENGLISH].add(attrs[name].title())
+
+  def populate_annotation(self, code_point, attrs):
+    pass
+
+  def populate_annotation_characters(self, content):
+    for name in content.split(" | "):
+      self.name[NAME_ENGLISH].add(name.title())
 
   def is_valid(self):
-    return self.single_code_point != None and self.name != None
+    return self.single_code_point != None
 
   def debug(self):
     print("\"" + \
@@ -52,7 +61,7 @@ class Char(object):
       "\";\"" + \
       emoji(self.single_code_point) + \
       "\";\"" + \
-      self.name + \
+      str(self.name) + \
       "\"")
 
 
@@ -61,10 +70,23 @@ class Emoji(object):
   def __init__(self):
     super(Emoji, self).__init__()
     self.unicode = None
+    self.name = {
+      NAME_ENGLISH: set()
+    }
 
   def populate(self, attrs):
     if UNICODE in attrs:
-      self.unicode = attrs[UNICODE]
+      self.unicode = attrs[UNICODE].upper()
+
+  def populate_annotation(self, code_point, attrs):
+    if self.unicode == None:
+      self.unicode = code_point
+
+  def populate_annotation_characters(self, content):
+    for name in content.split(" | "):
+      if self.unicode == "1F52B" and "water" in name:
+        continue
+      self.name[NAME_ENGLISH].add(name.title())
 
   def is_valid(self):
     return self.unicode != None
@@ -74,6 +96,8 @@ class Emoji(object):
       self.unicode + \
       "\";\"" + \
       emoji(self.unicode) + \
+      "\";\"" + \
+      str(self.name) + \
       "\"")
 
 
@@ -83,7 +107,9 @@ class Block(object):
     super(Block, self).__init__()
     self.first_code_point = None
     self.last_code_point = None
-    self.name = None
+    self.name = {
+      NAME_ENGLISH: set()
+    }
 
   def populate(self, attrs):
     if FIRST_CODE_POINT in attrs:
@@ -92,11 +118,10 @@ class Block(object):
       self.last_code_point = attrs[LAST_CODE_POINT]
     for name in NAMES:
       if name in attrs:
-        self.name = attrs[name]
-        break
+        self.name[NAME_ENGLISH].add(attrs[name].title())
 
   def is_valid(self):
-    return self.first_code_point != None and self.last_code_point != None and self.name != None
+    return self.first_code_point != None and self.last_code_point != None
 
   def debug(self):
     print("\"" + \
@@ -104,5 +129,5 @@ class Block(object):
       "\";\"" + \
       self.last_code_point + \
       "\";\"" + \
-      self.name + \
+      str(self.name) + \
       "\"")

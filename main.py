@@ -5,30 +5,33 @@ from xml.sax import make_parser
 from xml.sax.handler import feature_namespaces
 
 
-def parse_file(file):
+def run():
   handler = Handler()
   parser = make_parser()
   parser.setFeature(feature_namespaces, 0)
   parser.setContentHandler(handler)
-  parser.parse(file)
-  return handler
+  for file in [
+    "source.xml",
+    "annotations_en.xml"
+  ]:
+    parser.parse(file)
 
-
-def run():
-  handler =  parse_file("source.xml")
   blocks = handler.blocks
   chars = handler.chars
   emojis = handler.emojis
 
   print("Blocks")
   for block in blocks:
-    block.debug()
+    if block.is_valid():
+      block.debug()
   print("Chars")
   for char in chars:
-    char.debug()
+    if char.is_valid():
+      char.debug()
   print("Emojis")
   for emoji in emojis:
-    emoji.debug()
+    if emoji.is_valid():
+      emoji.debug()
 
   print(
     "blocks: " + str(len(blocks)) + \
