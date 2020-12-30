@@ -11,20 +11,20 @@ def parse_file(file):
   parser.setFeature(feature_namespaces, 0)
   parser.setContentHandler(handler)
   parser.parse(file)
-  return handler.chars
+  return handler.blocks
 
 
 def run():
-  chars = []
-  print(">> " + str(len(chars)))
-  chars.extend(parse_file("ucd.all.grouped.xml"))
-  print(">> " + str(len(chars)))
-  chars.extend(parse_file("ucd.nounihan.grouped.xml"))
-  print(">> " + str(len(chars)))
-  chars.extend(parse_file("ucd.unihan.grouped.xml"))
-  print(">> " + str(len(chars)))
-  for char in chars:
-    char.print_single_point()
+  blocks = []
+  print(">> " + str(len(blocks)))
+  blocks.extend(parse_file("ucd.all.grouped.xml"))
+  print(">> " + str(len(blocks)))
+  blocks.extend(parse_file("ucd.nounihan.grouped.xml"))
+  print(">> " + str(len(blocks)))
+  blocks.extend(parse_file("ucd.unihan.grouped.xml"))
+  print(">> " + str(len(blocks)))
+  for block in blocks:
+    block.debug()
 
 
 if __name__ == '__main__':
