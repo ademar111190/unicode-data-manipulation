@@ -11,5 +11,10 @@ Reference [XML Doc](https://www.unicode.org/reports/tr42/)
 Download the CLDR data and than:
 
 1. Get the `common/annotations/en.xml` file and save as `annotations_en.xml`.
+1. Get the `common/annotationsDerived/en.xml` file and save as `annotations_derived_en.xml`.
 
 - [Reference](http://cldr.unicode.org/index/downloads)
+
+Download the emojis and save as `emoji.txt`
+
+- [Emoji](https://www.unicode.org/Public/emoji/13.1/emoji-test.txt)

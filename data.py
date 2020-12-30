@@ -56,13 +56,11 @@ class Char(object):
     return self.single_code_point != None
 
   def debug(self):
-    print("\"" + \
-      self.single_code_point + \
-      "\";\"" + \
-      emoji(self.single_code_point) + \
-      "\";\"" + \
-      str(self.name) + \
-      "\"")
+    print("\"%s\";\"%s\";\"%s\"" % (
+      self.single_code_point,
+      emoji(self.single_code_point),
+      str(self.name)
+    ))
 
 
 class Emoji(object):
@@ -92,13 +90,11 @@ class Emoji(object):
     return self.unicode != None
 
   def debug(self):
-    print("\"" + \
-      self.unicode + \
-      "\";\"" + \
-      emoji(self.unicode) + \
-      "\";\"" + \
-      str(self.name) + \
-      "\"")
+    print("\"%s\";\"%s\";\"%s\"" % (
+      self.unicode,
+      emoji(self.unicode),
+      str(self.name)
+    ))
 
 
 class Block(object):
@@ -124,10 +120,8 @@ class Block(object):
     return self.first_code_point != None and self.last_code_point != None
 
   def debug(self):
-    print("\"" + \
-      self.first_code_point + \
-      "\";\"" + \
-      self.last_code_point + \
-      "\";\"" + \
-      str(self.name) + \
-      "\"")
+    print("\"%s\";\"%s\";\"%s\"" % (
+      self.first_code_point,
+      self.last_code_point,
+      str(self.name)
+    ))
