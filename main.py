@@ -2,6 +2,7 @@
 
 from handler import Handler
 from label import label
+from sqlite import generate_sqlite
 from xml.sax import make_parser
 from xml.sax.handler import feature_namespaces
 
@@ -26,26 +27,7 @@ def run():
   blocks = [block for block in handler.blocks if block.is_valid()]
   chars = [char for char in handler.chars if char.is_valid()]
   emojis = [emoji for emoji in handler.emojis if emoji.is_valid()]
-
-  print("Blocks")
-  for block in blocks:
-    block.debug()
-  print("Chars")
-  for char in chars:
-    char.debug()
-  print("Emojis")
-  for emoji in emojis:
-    emoji.debug()
-  print("Groups")
-  for group in groups:
-    group.debug()
-
-  print("blocks: %d, chars: %d, emojis: %d, sum: %d" % (
-    len(blocks),
-    len(chars),
-    len(emojis),
-    len(emojis) + len(chars)
-  ))
+  generate_sqlite(chars, emojis, blocks, groups)
 
 
 if __name__ == '__main__':

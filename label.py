@@ -4,6 +4,10 @@ import re
 from data import Char, Emoji, emoji
 
 
+CURRENT_GROUP_ID = 1
+CURRENT_SUB_GROUP_ID = 1
+
+
 def label(handler):
   groups = []
   group = None
@@ -39,6 +43,9 @@ class Group(object):
 
   def __init__(self, name):
     super(Group, self).__init__()
+    global CURRENT_GROUP_ID
+    self.id = CURRENT_GROUP_ID
+    CURRENT_GROUP_ID = CURRENT_GROUP_ID + 1
     self.name = name
     self.subgroups = []
 
@@ -64,6 +71,9 @@ class SubGroup(object):
 
   def __init__(self, name):
     super(SubGroup, self).__init__()
+    global CURRENT_SUB_GROUP_ID
+    self.id = CURRENT_SUB_GROUP_ID
+    CURRENT_SUB_GROUP_ID = CURRENT_SUB_GROUP_ID + 1
     self.name = name
     self.emojis = []
 

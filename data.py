@@ -10,6 +10,8 @@ UNICODE = "unicode"
 NAMES = ["na", "na1", "name"]
 NAME_ENGLISH = "en"
 
+CURRENT_BLOCK_ID = 1
+
 
 def emoji(code_point):
   codes = code_point.split(" ")
@@ -101,6 +103,9 @@ class Block(object):
 
   def __init__(self):
     super(Block, self).__init__()
+    global CURRENT_BLOCK_ID
+    self.id = CURRENT_BLOCK_ID
+    CURRENT_BLOCK_ID = CURRENT_BLOCK_ID + 1
     self.first_code_point = None
     self.last_code_point = None
     self.name = {
